@@ -1,0 +1,36 @@
+{
+  "name": "test2",
+  "version": "0.0.1",
+  "dependencies": {
+    "bcore": "0.0.18",
+    "ldmap": "^0.1.42"
+  },
+  "datav": {
+    "cn_name": "test2",
+    "protocol": 2,
+    "type": [
+      "map"
+    ],
+    "view": {
+      "width": "1300",
+      "height": "700",
+      "minWidth": "200",
+      "minHeight": "200"
+    },
+    "apis": {
+      "source": {
+        "handler": "render",
+        "description": "接口描述",
+        "fields": {
+          "value": {
+            "description": "值说明"
+          }
+        }
+      }
+    },
+    "config": {},
+    "api_data": {
+      "source": "./data.json"
+    }
+  }
+}

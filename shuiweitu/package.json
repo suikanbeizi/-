@@ -1,0 +1,183 @@
+{
+  "name": "@shukongkeji/shuiweitu",
+  "version": "0.0.8",
+  "dependencies": {
+    "bcore": "0.0.18",
+    "jquery": "2.1.4",
+    "lodash": "4.6.1",
+    "d3":"3.5.17"
+  },
+  "datav": {
+    "cn_name": "基本水位图",
+    "icon": "http://wyc-store.oss-cn-shanghai.aliyuncs.com/images/DataV%E7%BB%84%E4%BB%B6%E5%BC%80%E5%8F%91/%E6%B0%B4%E4%BD%8D%E5%9B%BEicon.png",
+    "protocol": 2,
+    "type": [
+      "pie-shuiwei"
+    ],
+    "view": {
+      "width": "400",
+      "height": "200",
+      "minWidth": "200",
+      "minHeight": "100"
+    },
+    "apis": {
+      "source": {
+        "handler": "render",
+        "description": "接口描述",
+        "fields": {
+          "value": {
+            "description": "水位图接口说明"
+          }
+        }
+      }
+    },
+    "config": {
+      "margin": {
+        "name": "系列",
+        "type": "group",
+        "children":{
+          "liquidcolor": {
+            "name": "颜色",
+            "type":"array",
+            "default":["#6DA398"],
+            "child":{
+              "name":"颜色<%= i + 1 %>",
+              "type":"color",
+              "default":"#6DA398"
+            }
+          },
+          "radius":{
+            "name":"半径",
+            "type":"text",
+            "default":0.9
+          },
+          "waveheight":{
+            "name":"波浪高度",
+            "type":"text",
+            "default":0.2
+          },
+          "wavecount":{
+            "name":"波浪个数",
+            "type":"text",
+            "default":2
+          },
+          "wavetime":{
+            "name":"波浪时间",
+            "type":"text",
+            "default":2000
+          },
+          "waveopacity":{
+            "name":"波浪透明度",
+            "type":"text",
+            "default":1
+          },
+          "shapes":{
+            "name":"形状",
+            "type":"select",
+            "options":[
+              {"name":"圆形","value":"circle"},
+              {"name":"方形","value":"Square"},
+              {"name":"圆角方形","value":"rSquare"}
+            ],
+            "default":"circle"
+          },
+          "waveanimate":{
+            "name":"波浪动画",
+            "type":"boolean",
+            "default":true
+          },
+          "waveanimateway":{
+            "name":"动画方式",
+            "type":"select",
+            "options":[
+              {"name":"均匀","value":"linear"},
+              {"name":"加速","value":"in-out"},
+              {"name":"减速","value":"out-in"}
+            ],
+            "default":"linear"
+          },
+          "waverise":{
+            "name":"波浪上升动画",
+            "type":"boolean",
+            "default":false
+          },
+          "valueCountUp":{
+            "name":"文字动画",
+            "type":"boolean",
+            "default":false
+          },
+          "framestyle":{
+            "name":"外框样式",
+            "type":"group",
+            "children":{
+              "framesmiddledistance":{
+                "name":"内部距离",
+                "type":"text",
+                "default":0.05
+              },
+              "frameswidth":{
+                "name":"边框粗细",
+                "type":"text",
+                "default":0.05
+              },
+              "framescolor":{
+                "name":"边框颜色",
+                "type":"color",
+                "default":"#6DA398"
+              },
+              "framesxangle":{
+                "name":"圆方形x",
+                "type":"text",
+                "default":20
+              },
+              "framesyangle":{
+                "name":"圆方形y",
+                "type":"text",
+                "default":20
+              }
+            }
+          },
+          "textstyle":{
+            "name":"文字样式",
+            "type":"group",
+            "children":{
+              "textcolor":{
+                "name":"文字颜色",
+                "type":"color",
+                "default":"#0E5144"
+              },
+              "textintcolor":{
+                "name":"内部文字颜色",
+                "type":"color",
+                "default":"#fff"
+              },
+              "textsize":{
+                "name":"文字大小",
+                "type":"number",
+                "default":50
+              },
+              "textweight":{
+                "name":"文字粗细",
+                "type":"text",
+                "default":"bold"
+              },
+              "textheight":{
+                "name":"文字高度",
+                "type":"text",
+                "default":0.52
+              }
+            }
+          }
+        }
+
+      }
+    },
+    "api_data": {
+      "source": [
+        {
+          "value": 0.5
+        }
+      ]
+    }
+  }
+}

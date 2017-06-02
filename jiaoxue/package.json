@@ -1,0 +1,77 @@
+{
+  "name": "jiaoxue",
+  "version": "0.0.1",
+  "dependencies": {
+    "bcore": "0.0.18",
+    "jquery": "2.1.4",
+    "lodash": "4.6.1",
+    "d3":"3.5.17"
+  },
+  "datav": {
+    "cn_name": "jiaoxue",
+    "icon": "",
+    "protocol": 2,
+    "type": [
+      ""
+    ],
+    "view": {
+      "width": "400",
+      "height": "200",
+      "minWidth": "200",
+      "minHeight": "100"
+    },
+    "apis": {
+      "source": {
+        "handler": "render",
+        "description": "接口描述",
+        "fields": {
+          "value": {
+            "description": "值说明"
+          }
+        }
+      }
+    },
+    "config": {
+      "margin": {
+        "name": "全局样式",
+        "type": "group",
+        "children":{
+            "size":{
+              "name":"字号",
+              "type":"number",
+              "default":22,
+              "range":[
+                1,100
+              ]
+            },
+            "color":{
+              "name":"颜色",
+              "type":"color",
+              "default":"#fff"
+            },
+            "xianshi":{
+              "name":"显示",
+              "type":"boolean",
+              "default":true
+            },
+            "family":{
+              "name":"字体样式",
+              "type":"select",
+              "options":[
+                {"name":"宋体","value":"宋体"},
+                {"name":"黑体","value":"黑体"}
+              ],
+              "default":"宋体"
+            }
+        }
+      }
+    },
+    "api_data": {
+      "source": [
+        {
+          "value": "值"
+        }
+      ]
+    }
+  }
+}

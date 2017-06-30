@@ -1,0 +1,680 @@
+{
+  "name": "@shukongkeji/Gantt",
+  "version": "0.1.0",
+  "dependencies": {
+    "bcore": "0.0.18",
+    "d3": "^3.5.17",
+    "d3-tip": "^0.7.1",
+    "jquery": "2.1.4",
+    "lodash": "4.6.1"
+  },
+  "datav": {
+    "cn_name": "甘特图",
+    "icon": "http://wyc-store.oss-cn-shanghai.aliyuncs.com/images/datav/%E9%BB%91%E5%BA%95%E6%96%B0.png",
+    "protocol": 2,
+    "type": [
+      "pie-gantt"
+    ],
+    "view": {
+      "width": "400",
+      "height": "200",
+      "minWidth": "200",
+      "minHeight": "100"
+    },
+    "apis": {
+      "source": {
+        "handler": "render",
+        "description": "接口描述",
+        "fields": {
+          "startDate": {
+            "description": "开始时间"
+          },
+          "endDate":{
+            "description": "结束时间"
+          },
+          "name":{
+            "description": "项目阶段名称"
+          },
+          "fact":{
+            "description": "实际完成时间"
+          }
+        }
+      }
+    },
+    "config": {
+      "margin":{
+        "name":"全局样式",
+        "type":"group",
+        "children":{
+          "fontfamily":{
+            "name":"字体",
+            "type":"search",
+            "options":[
+              {"name":"微软雅黑","value":"微软雅黑"},
+              {"name":"宋体","value":"SimSun"},
+              {"name":"黑体","value":"SimHei"},
+              {"name":"隶书","value":"LiSu"},
+              {"name":"幼圆","value":"YouYuan"},
+              {"name":"火星文","value":"Apple LiSung Light"},
+              {"name":"tahoma","value":"tahoma"},
+              {"name":"arial","value":"arial"},
+              {"name":"sans-serif","value":"sans-serif"}
+            ],
+            "default":"微软雅黑"
+          },
+          "gzstyle":{
+            "name":"柱状样式",
+            "type":"group",
+            "children":{
+              "gzdis": {
+                "name": "下面柱间间距",
+                "type": "number",
+                "range": [
+                  0,
+                  1
+                ],
+                "default": 0.5
+              },
+              "sgzdis": {
+                "name": "上面柱间间距",
+                "type": "number",
+                "range": [
+                  0,
+                  1
+                ],
+                "default": 0.5
+              },
+              "sweizhi":{
+                "name":"上面柱位置",
+                "type":"select",
+                "options":[
+                  {"name":"上","value":"top"},
+                  {"name":"中","value":"center"},
+                  {"name":"下","value":"bottom"}
+                ],
+                "default":"center"
+              },
+              "raduis":{
+                "name":"下面圆角",
+                "type":"number",
+                "default":2
+              },
+              "sraduis":{
+                "name":"上面圆角",
+                "type":"number",
+                "default":2
+              },
+              "upgzbg":{
+                "name":"下面柱子背景",
+                "type":"color",
+                "default":"#00ffff"
+              },
+              "downgzbg":{
+                "name":"上面柱子背景",
+                "type":"color",
+                "default":"#00a0e9"
+              }
+            }
+          },
+          "gbstyle":{
+            "name":"边距",
+            "type":"group",
+            "children":{
+              "top":{
+                "name":"顶部",
+                "type":"number",
+                "default":20
+              },
+              "bottom":{
+                "name":"底部",
+                "type":"number",
+                "default":30
+              },
+              "left":{
+                "name":"左侧",
+                "type":"number",
+                "default":60
+              },
+              "right":{
+                "name":"右侧",
+                "type":"number",
+                "default":60
+              }
+            }
+          },
+          "values":{
+            "name":"值标签",
+            "type":"group",
+            "fold":true,
+            "children":{
+              "show":{
+                "name":"显示",
+                "type":"boolean",
+                "default":false
+              },
+              "text":{
+                "name":"文本",
+                "type":"group",
+                "children":{
+                  "fontsize":{
+                    "name":"字号",
+                    "type":"number",
+                    "default":10
+
+                  },
+                  "fontcolor":{
+                    "name":"颜色",
+                    "type":"color",
+                    "default":"#ffffff"
+                  },
+                  "xfontpos":{
+                    "name":"x轴位置",
+                    "type":"select",
+                    "options":[
+                      {"name":"左","value":"left"},
+                      {"name":"中","value":"middle"},
+                      {"name":"右","value":"right"}
+                    ],
+                    "default":"middle"
+                  },
+                  "fontpos":{
+                    "name":"y轴位置",
+                    "type":"number",
+                    "default":0
+                  },
+                  "animation":{
+                    "name":"文字动画",
+                    "type":"boolean",
+                    "default":"true"
+                  },
+                  "animationTime":{
+                    "name":"动画时间",
+                    "type":"number",
+                    "default":1000
+                  }
+                },
+                "show":[
+                  ["show","$eq", true]
+                ]
+              }
+            }
+          }
+        }
+      },
+      "biaoti":{
+        "name":"标题",
+        "type":"group",
+        "fold":true,
+        "children":{
+          "show":{
+            "name":"显示",
+            "type":"boolean",
+            "default":true
+          },
+          "ming":{
+            "name":"标题名",
+            "type":"text",
+            "default":"主标题",
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "style":{
+            "name":"文本样式",
+            "type":"group",
+            "children":{
+              "fontsize":{
+                "name":"字号",
+                "type":"number",
+                "default":16
+              },
+              "color":{
+                "name":"字体颜色",
+                "type":"color",
+                "default":"#ffffff"
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "buju":{
+            "name":"布局",
+            "type":"select",
+            "options":[
+              {"name":"左","value":"left"},
+              {"name":"中","value":"middle"},
+              {"name":"右","value":"right"}
+            ],
+            "default":"left",
+            "show":[
+              ["show","$eq",true]
+            ]
+          }
+
+        }
+      },
+      "xstyle":{
+        "name":"x轴",
+        "type":"group",
+        "fold":true,
+        "children":{
+          "show":{
+            "name":"显示",
+            "type":"boolean",
+            "default":true
+          },
+          "text":{
+            "name":"文本",
+            "type":"group",
+            "children":{
+              "fontsize":{
+                "name":"字号",
+                "type":"number",
+                "default":12
+
+              },
+              "fontcolor":{
+                "name":"颜色",
+                "type":"color",
+                "default":"#fff"
+              },
+              "weizhi":{
+                "name":"与坐标轴间距",
+                "type":"number",
+                "default":6
+              },
+              "fontweizhi":{
+                "name":"文字位置",
+                "type":"text",
+                "default":"0,0"
+              },
+              "timeStyle":{
+                "name":"时间样式",
+                "type":"select",
+                "options":[
+                  {"name":"年-月-日","value":"%Y-%m-%d"},
+                  {"name":"月-日","value":"%m-%d"}
+                ],
+                "default":"%Y-%m-%d"
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "zhouvalue":{
+            "name":"轴标签",
+            "type":"group",
+            "children":{
+              "show":{
+                "name":"显示",
+                "type":"boolean",
+                "default":true
+              },
+              "jiaodu":{
+                "name":"角度",
+                "type":"number",
+                "default":-20
+              },
+              "num":{
+                "name":"数量",
+                "type":"number",
+                "default":6
+              },
+              "bjlong":{
+                "name":"长度",
+                "type":"number",
+                "default":10
+              }
+
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "zhouline":{
+            "name":"轴线",
+            "type":"group",
+            "children":{
+              "show":{
+                "name":"显示",
+                "type":"boolean",
+                "default":true
+              },
+              "color": {
+                "name": "颜色",
+                "type": "color",
+                "default": "#fff"
+              },
+              "lineweight":{
+                "name":"宽度",
+                "type":"number",
+                "default":1
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "wangge":{
+            "name":"网格线",
+            "type":"group",
+            "children":{
+              "show":{
+                "name":"显示",
+                "type":"boolean",
+                "default":true
+              },
+              "color": {
+                "name": "颜色",
+                "type": "color",
+                "default": "#fff"
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          }
+
+        }
+      },
+      "ystyle":{
+        "name":"y轴",
+        "type":"group",
+        "fold":true,
+        "children":{
+          "show":{
+            "name":"显示",
+            "type":"boolean",
+            "default":true
+          },
+          "text":{
+            "name":"文本",
+            "type":"group",
+            "children":{
+              "fontsize":{
+                "name":"字号",
+                "type":"number",
+                "default":12
+              },
+              "fontcolor":{
+                "name":"颜色",
+                "type":"color",
+                "default":"#fff"
+              },
+              "weizhi":{
+                "name":"与坐标轴间距",
+                "type":"number",
+                "default":6
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "zhouvalue":{
+            "name":"轴标签",
+            "type":"group",
+            "children":{
+              "show":{
+                "name":"显示",
+                "type":"boolean",
+                "default":true
+              },
+              "jiaodu":{
+                "name":"角度",
+                "type":"number",
+                "default":0
+              },
+              "bjlong":{
+                "name":"长度",
+                "type":"number",
+                "default":0
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "zhoudanwei":{
+            "name":"轴单位",
+            "type":"group",
+            "children":{
+              "show":{
+                "name":"显示",
+                "type":"boolean",
+                "default":true
+              },
+              "danwei":{
+                "name":"单位",
+                "type":"text",
+                "default":"单位"
+              },
+              "fontsize":{
+                "name":"字号",
+                "type":"number",
+                "default":12
+              },
+              "color":{
+                "name":"颜色",
+                "type":"color",
+                "default":"#ffffff"
+              },
+              "weizhi":{
+                "name":"位置",
+                "type":"text",
+                "default":"0,0"
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "zhouline":{
+            "name":"轴线",
+            "type":"group",
+            "children":{
+              "show":{
+                "name":"显示",
+                "type":"boolean",
+                "default":true
+              },
+              "color": {
+                "name": "颜色",
+                "type": "color",
+                "default": "#fff"
+              },
+              "lineweight":{
+                "name":"宽度",
+                "type":"number",
+                "default":1
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "wangge":{
+            "name":"网格线",
+            "type":"group",
+            "children":{
+              "show":{
+                "name":"显示",
+                "type":"boolean",
+                "default":true
+              },
+              "color": {
+                "name": "颜色",
+                "type": "color",
+                "default": "#333"
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          }
+
+        }
+      },
+      "tuli":{
+        "name":"图例",
+        "type":"group",
+        "fold":true,
+        "children":{
+          "show":{
+            "name":"显示",
+            "type":"boolean",
+            "default":true
+          },
+          "text":{
+            "name":"文本",
+            "type":"group",
+            "children":{
+              "zneirong":{
+                "name":"系列名",
+                "type":"text",
+                "default":"预计工时"
+              },
+              "fneirong":{
+                "name":"系列名",
+                "type":"text",
+                "default":"实际工时"
+              },
+              "fontsize":{
+                "name":"字号",
+                "type":"number",
+                "default":12
+              },
+              "fontcolor":{
+                "name":"颜色",
+                "type":"color",
+                "default":"#fff"
+              }
+            },
+            "show":[
+              ["show","$eq", true]
+            ]
+          },
+          "weizhi":{
+            "name":"布局",
+            "type":"group",
+            "children":{
+              "jianju":{
+                "name":"间距",
+                "type":"group",
+                "children":{
+                  "lr":{
+                    "name":"左右间距",
+                    "type":"number",
+                    "default":0
+                  },
+                  "tb":{
+                    "name":"上下间距",
+                    "type":"number",
+                    "default":0
+                  }
+                }
+              },
+              "weizhi":{
+                "name":"位置",
+                "type":"select",
+                "options":[
+                  {"name":"顶部居中","value":"topM"},
+                  {"name":"顶部居左","value":"topL"},
+                  {"name":"顶部居右","value":"topR"},
+                  {"name":"底部居中","value":"bottomM"},
+                  {"name":"底部居左","value":"bottomL"},
+                  {"name":"底部居右","value":"bottomR"}
+                ],
+                "default":"bottomM"
+              }
+            }
+            ,
+            "show":[
+              ["show","$eq", true]
+            ]
+
+          }
+        }
+      }
+
+    },
+    "api_data": {
+      "source": [
+        {
+          "startDate": "2017-02-05",
+          "endDate":"2017-02-10",
+          "name":"项目立项",
+          "fact":{
+            "startDate": "2017-02-06",
+            "endDate":"2017-02-09"
+          }
+        },
+        {
+          "startDate": "2017-02-10",
+          "endDate":"2017-02-15",
+          "name":"需求分析",
+          "fact":{
+            "startDate": "2017-02-09",
+            "endDate":"2017-02-13"
+          }
+        },
+        {
+          "startDate": "2017-02-15",
+          "endDate":"2017-02-18",
+          "name":"概要设计",
+          "fact":{
+            "startDate": "2017-02-13",
+            "endDate":"2017-02-15"
+          }
+        },
+        {
+          "startDate": "2017-02-18",
+          "endDate":"2017-02-22",
+          "name":"详细设计",
+          "fact":{
+            "startDate": "2017-02-15",
+            "endDate":"2017-02-22"
+          }
+        },
+        {
+          "startDate": "2017-02-22",
+          "endDate":"2017-03-30",
+          "name":"编码",
+          "fact":{
+            "startDate": "2017-02-22",
+            "endDate":"2017-04-05"
+          }
+        },
+        {
+          "startDate": "2017-03-30",
+          "endDate":"2017-04-07",
+          "name":"系统测试",
+          "fact":{
+            "startDate": "2017-04-05",
+            "endDate":"2017-04-15"
+          }
+        },
+        {
+          "startDate": "2017-04-07",
+          "endDate":"2017-04-10",
+          "name":"项目发布",
+          "fact":{
+            "startDate": "2017-04-15",
+            "endDate":"2017-04-18"
+          }
+        },
+        {
+          "startDate": "2017-04-10",
+          "endDate":"2017-04-15",
+          "name":"项目结项",
+          "fact":{
+            "startDate": "2017-04-18",
+            "endDate":"2017-04-20"
+          }
+        }
+      ]
+    }
+  }
+}
